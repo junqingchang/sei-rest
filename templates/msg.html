@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message Board</title>
+</head>
+<body>
+    <h2>
+        MessageBoard Central
+    </h2>
+    <p>
+    To Logout: Type curl -X POST -d '{"status":"logout"}' -H "Content-Type: application/json" localhost:5000/logout
+    To find number of post: Type curl -X SIZE localhost:5000/msgboard/
+    To see specific post: Type curl -X GET localhost:5000/msgboard/INTEGERNUMBER
+    To enter a new post: Type curl -X NOTE -d '{"message":"YOURMESSAGE"}'  -H "Content-Type: application/json" localhost:5000/msgboard/INTEGERNUMBER
+    </p>
+</body>
+</html>
