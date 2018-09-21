@@ -42,6 +42,10 @@ $ curl -X GET localhost:5000/msgboard/1
 $ curl -X SIZE localhost:5000/msgboard/
 $ curl -X DELETE localhost:5000/msgboard/1
 $ curl -X SIZE localhost:5000/msgboard/
+$ curl -X NOTE -d "New Message" -H "Content-Type: text/plain" localhost:5000/msgboard/1
+$ curl -X GET localhost:5000/msgboard/1
+$ curl -X SIZE localhost:5000/msgboard/
+$ curl -X DELETE localhost:5000/msgboard/1
 $ curl -X EXIT localhost:5000/logout
 ```
 
