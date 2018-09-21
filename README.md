@@ -2,6 +2,7 @@
 
 SUTD ISTD Term 6 Networks Exercise
 We are to create a RESTFUL API with Flask using 3 verbs and 2 nouns
+In my version, I created GET, POST, PUSH, EXIT, NOTE, SIZE
 
 ## Getting Started
 
