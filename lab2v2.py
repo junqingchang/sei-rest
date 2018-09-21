@@ -1,6 +1,49 @@
 from flask import Flask, render_template, make_response, redirect, url_for, request, jsonify
 from flask_pymongo import PyMongo
 
+'''
+Implementation Details:
+Concept of this implementation is an announcement board where the admin can send and delete announcements. The announcements
+are stored on a MongoDB using PyMongo
+
+localhost:5000/
+The first page is a login page which requires the admin to login with the credentials "admin" for both
+Username and Password using the POST API. Trying to access other pages without login in results in automatically redirecting
+back to the login page
+The GET API returns the instructions on the login page
+The POST API is used for logging in. It only takes in a json type with keys "user" for username and "pass" for password
+Commands to run:
+$ curl -X GET localhost:5000
+$ curl -X POST -d '{"user":"admin", "pass":"admin"}' -H "Content-Type: application/json" localhost:5000
+
+localhost:5000/msgboard/ and localhost:5000/msgboard/<int value>
+After logging in, the user will then be able to access a list of commands that allows the user to add/delete notes,
+namely using the API NOTE and DELETE. The user will also be able to see the number of post that is up by using the
+SIZE API. The NOTE call supports 2 content types, namely application/json and text/plain.
+The GET API returns the instruction on the msgboard page, which teaches the user what commands can be ran
+The NOTE API submits a new announcement on whichever int value at the end of the path. NOTE API accepts application/json type
+with key "message" as well as text/plain
+The SIZE API returns the number of post on the announcement channel
+Commands to run:
+$ curl -X GET localhost:5000/msgboard/
+$ curl -X SIZE localhost:5000/msgboard/
+$ curl -X NOTE -d '{"message":"welcome to messageboard"}'  -H "Content-Type: application/json" localhost:5000/msgboard/1
+$ curl -X GET localhost:5000/msgboard/1
+$ curl -X SIZE localhost:5000/msgboard/
+$ curl -X DELETE localhost:5000/msgboard/1
+$ curl -X SIZE localhost:5000/msgboard/
+$ curl -X NOTE -d "New Message" -H "Content-Type: text/plain" localhost:5000/msgboard/1
+$ curl -X GET localhost:5000/msgboard/1
+$ curl -X SIZE localhost:5000/msgboard/
+$ curl -X DELETE localhost:5000/msgboard/1
+
+localhost:5000/logoutpage/
+This is the page for the user to logout and only has the EXIT call
+The EXIT API logs the user out of the account
+Commands to run:
+$ curl -X EXIT localhost:5000/logoutpage
+'''
+
 app = Flask(__name__, template_folder='templates')
 app.config['MONGO_DBNAME'] = 'restdb'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/restdb'
