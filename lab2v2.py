@@ -68,12 +68,19 @@ def MessageContent(postID):
             return jsonify({'result' : output})
         elif(request.method == "NOTE"):
             note = mongo.db.note
-            data = request.get_json()
-            newdata = data["message"]
-            noteid = note.insert({'post': postID, 'message': newdata})
-            new_note = note.find_one({'_id': noteid })
-            output = {'post' : new_note['post'], 'message' : new_note['message']}
-            return jsonify({'result' : output})
+            try:
+                data = request.get_json()
+                newdata = data["message"]
+                noteid = note.insert({'post': postID, 'message': newdata})
+                new_note = note.find_one({'_id': noteid })
+                output = {'post' : new_note['post'], 'message' : new_note['message']}
+                return jsonify({'result' : output})
+            except:
+                data = str(request.data)
+                noteid = note.insert({'post': postID, 'message': data})
+                new_note = note.find_one({'_id': noteid })
+                output = {'post' : new_note['post'], 'message' : new_note['message']}
+                return jsonify({'result' : output})
         elif(request.method == "DELETE"):
             note = mongo.db.note
             myquery = {'post' : postID}
@@ -83,12 +90,12 @@ def MessageContent(postID):
     else:
         return redirect("/")
 
-@app.route('/logout', methods=["GET", "EXIT"])
+@app.route('/logoutpage', methods=["GET", "EXIT"])
 def Logout():
     global login_status
     if(login_status):
         if (request.method == "GET"):
-            return "Type curl -X EXIT localhost:5000/logout\n"
+            return "Type curl -X EXIT localhost:5000/logoutpage\n"
         elif (request.method == "EXIT"):
             login_status = False
             return redirect('/')
